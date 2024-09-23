@@ -231,6 +231,9 @@ func ExtractNmap(run *Nmaprun, scan string) {
 		}
 
 		for _, port := range host.Ports.Ports {
+
+			if port.State.State == "open" {
+
 			//script for port exists?
 			if len(port.Script) > 0 {
 				//output multiple rows per script
@@ -240,6 +243,7 @@ func ExtractNmap(run *Nmaprun, scan string) {
 				}
 			} else {
 				rows = append(rows, []string{scan, host.Address.Addr, hostname, port.PortId, port.Service.Name, port.Service.Conf, "", ""})
+			}
 			}
 		}
 	}
